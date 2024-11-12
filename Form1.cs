@@ -56,36 +56,21 @@ namespace app20241112
         {
             try
             {
-                // 確保 TextBox 有有效的門檻值
-                if (string.IsNullOrWhiteSpace(textBox1.Text))
-                {
-                    MessageBox.Show("請輸入門檻值！", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // 嘗試將 TextBox 中的門檻值轉換為整數
-                int threshold;
-                if (!int.TryParse(textBox1.Text, out threshold) || threshold < 0 || threshold > 255)
-                {
-                    MessageBox.Show("請輸入有效的門檻值（0-255）！", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
                 int Height = this.pictureBox1.Image.Height;
                 int Width = this.pictureBox1.Image.Width;
                 Bitmap oldBitmap = (Bitmap)this.pictureBox1.Image;
 
-               
+                // 定義 Prewitt 和 Sobel 的 Gx, Gy 遮罩
                 int[,] PrewittGx = { { -1, 0, 1 }, { -1, 0, 1 }, { -1, 0, 1 } };
                 int[,] PrewittGy = { { -1, -1, -1 }, { 0, 0, 0 }, { 1, 1, 1 } };
 
                 int[,] SobelGx = { { -1, 0, 1 }, { -2, 0, 2 }, { -1, 0, 1 } };
                 int[,] SobelGy = { { -1, -2, -1 }, { 0, 0, 0 }, { 1, 2, 1 } };
 
-                
+                // 創建一個新的 Bitmap 用來存放邊緣檢測結果
                 Bitmap edgeBitmap = new Bitmap(Width, Height);
 
-                
+                // 用來保存每個像素的邊緣強度
                 List<int> edgeValues = new List<int>();
 
                 // 選擇使用 Prewitt 邊緣檢測 (如果想用 Sobel 可以替換 Gx, Gy 遮罩)
@@ -148,11 +133,8 @@ namespace app20241112
                         // 正規化邊緣強度到 0-255 範圍
                         int normEdge = (int)((magnitude - minEdgeValue) * 255.0 / (maxEdgeValue - minEdgeValue));
 
-                        // 進行門檻處理，低於門檻設為 0，否則設為 255
-                        if (normEdge >= threshold)
-                            edgeBitmap.SetPixel(x, y, Color.FromArgb(255, 255, 255)); // 邊緣為白色
-                        else
-                            edgeBitmap.SetPixel(x, y, Color.FromArgb(0, 0, 0)); // 非邊緣為黑色
+                        // 將正規化後的邊緣強度設為該像素的灰階值
+                        edgeBitmap.SetPixel(x, y, Color.FromArgb(normEdge, normEdge, normEdge));
                     }
                 }
 

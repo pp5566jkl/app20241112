@@ -32,8 +32,6 @@
             pictureBox2 = new PictureBox();
             button1 = new Button();
             button2 = new Button();
-            label1 = new Label();
-            textBox1 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
@@ -76,29 +74,11 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(897, 390);
-            label1.Name = "label1";
-            label1.Size = new Size(88, 15);
-            label1.TabIndex = 4;
-            label1.Text = "門檻值(0~255)";
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(897, 364);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 5;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1078, 450);
-            Controls.Add(textBox1);
-            Controls.Add(label1);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(pictureBox2);
@@ -108,7 +88,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -117,7 +96,5 @@
         private PictureBox pictureBox2;
         private Button button1;
         private Button button2;
-        private Label label1;
-        private TextBox textBox1;
     }
 }
